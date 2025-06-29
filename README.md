@@ -331,6 +331,108 @@ ACID stands for:
 
 ---
 
+## 📚 MySQL Clauses Cheat Sheet
+
+### 1. SELECT
+- Used to select data from a database.
+  ```sql
+  SELECT name, age FROM users;
+  ```
+
+### 2. FROM
+- Specifies the table to select or delete data from.
+  ```sql
+  SELECT * FROM employees;
+  ```
+
+### 3. WHERE
+- Filters records that fulfill a specified condition.
+  ```sql
+  SELECT * FROM orders WHERE amount > 100;
+  ```
+
+### 4. GROUP BY
+- Groups rows that have the same values in specified columns.
+  ```sql
+  SELECT department, COUNT(*) FROM employees GROUP BY department;
+  ```
+
+### 5. HAVING
+- Filters groups created by GROUP BY.
+  ```sql
+  SELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 5;
+  ```
+
+### 6. ORDER BY
+- Sorts the result set in ascending or descending order.
+  ```sql
+  SELECT * FROM employees ORDER BY salary DESC;
+  ```
+
+### 7. LIMIT
+- Specifies the number of records to return.
+  ```sql
+  SELECT * FROM products LIMIT 10;
+  ```
+
+### 8. DISTINCT
+- Returns only distinct (different) values.
+  ```sql
+  SELECT DISTINCT city FROM customers;
+  ```
+
+### 9. JOIN (INNER, LEFT, RIGHT, FULL)
+- Combines rows from two or more tables.
+  ```sql
+  SELECT a.name, b.salary FROM a INNER JOIN b ON a.id = b.a_id;
+  ```
+
+### 10. UNION / UNION ALL
+- Combines the result set of two or more SELECT statements.
+  ```sql
+  SELECT city FROM customers
+  UNION
+  SELECT city FROM suppliers;
+  ```
+
+### 11. IN
+- Checks if a value matches any value in a list or subquery.
+  ```sql
+  SELECT * FROM users WHERE country IN ('India', 'USA');
+  ```
+
+### 12. BETWEEN
+- Selects values within a given range.
+  ```sql
+  SELECT * FROM products WHERE price BETWEEN 10 AND 50;
+  ```
+
+### 13. LIKE
+- Searches for a specified pattern in a column.
+  ```sql
+  SELECT * FROM users WHERE name LIKE 'A%';
+  ```
+
+### 14. IS NULL / IS NOT NULL
+- Checks for (non-)NULL values.
+  ```sql
+  SELECT * FROM employees WHERE manager_id IS NULL;
+  ```
+
+### 15. EXISTS
+- Checks for the existence of any record in a subquery.
+  ```sql
+  SELECT name FROM customers WHERE EXISTS (SELECT 1 FROM orders WHERE customers.id = orders.customer_id);
+  ```
+
+### 16. ALIAS (AS)
+- Gives a table or a column a temporary name.
+  ```sql
+  SELECT name AS employee_name FROM employees;
+  ```
+
+---
+
 ## 📝 Tip
 
 Practice these assertions and functions with real queries to master SQL for interviews!
