@@ -241,6 +241,96 @@ MySQL does not support the `ASSERT` keyword directly, but you can enforce data i
 
 ---
 
+## 🔑 MySQL Key Concepts
+
+### 1. Primary Key
+
+- **Definition:** A column (or set of columns) that uniquely identifies each row in a table.
+- **Properties:** Cannot be NULL, must be unique.
+- **Example:**
+  ```sql
+  CREATE TABLE users (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+  );
+  ```
+  Here, `id` is the primary key.
+
+### 2. Composite Key
+
+- **Definition:** A primary key made up of two or more columns to uniquely identify a row.
+- **Example:**
+  ```sql
+  CREATE TABLE enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+  );
+  ```
+  Here, the combination of `student_id` and `course_id` uniquely identifies each enrollment.
+
+### 3. Unique Key
+
+- **Definition:** Ensures all values in a column (or set of columns) are unique across the table.
+- **Allows NULLs:** Yes (except for primary key).
+- **Example:**
+  ```sql
+  CREATE TABLE employees (
+    email VARCHAR(100) UNIQUE
+  );
+  ```
+
+### 4. Foreign Key
+
+- **Definition:** A column (or set of columns) that establishes a link between data in two tables.
+- **Enforces:** Referential integrity.
+- **Example:**
+  ```sql
+  CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  );
+  ```
+
+### 5. Candidate Key
+
+- **Definition:** Any column or set of columns that can qualify as a unique key in the database. There can be multiple candidate keys in a table, but only one primary key.
+- **Example:** In a `users` table, both `email` and `username` could be candidate keys.
+
+### 6. Alternate Key
+
+- **Definition:** Candidate keys that are not chosen as the primary key.
+- **Example:** If `email` is not the primary key but is unique, it is an alternate key.
+
+### 7. Super Key
+
+- **Definition:** Any combination of columns that uniquely identifies a row. All candidate keys are super keys, but not all super keys are candidate keys.
+
+---
+
+## ⚡ ACID Properties in SQL Databases
+
+ACID stands for:
+
+1. **Atomicity**
+   - Each transaction is all or nothing. If any part fails, the whole transaction fails and the database is unchanged.
+   - *Example:* Transferring money between accounts: both debit and credit must succeed or neither.
+
+2. **Consistency**
+   - A transaction brings the database from one valid state to another, maintaining all rules (constraints, cascades, triggers).
+   - *Example:* Foreign key constraints are always enforced.
+
+3. **Isolation**
+   - Concurrent transactions do not interfere with each other. Intermediate results are invisible to other transactions.
+   - *Example:* Two users updating the same data won't see each other's changes until committed.
+
+4. **Durability**
+   - Once a transaction is committed, it will remain so, even in the event of a system failure.
+   - *Example:* After a successful transfer, the changes persist even if the server crashes.
+
+---
+
 ## 📝 Tip
 
 Practice these assertions and functions with real queries to master SQL for interviews!
