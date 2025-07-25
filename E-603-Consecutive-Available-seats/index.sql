@@ -1,0 +1,1 @@
+SELECT seat_id, (SELECT *, LEAD(free) over(order by seat_id) AS NextSeat from cinema, LAG(free) over(order by seat_id) AS PrevSeat) AS W WHERE W.free=1 AND NextSeat=1 OR W.free=1 AND PrevSeat=1;

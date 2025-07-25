@@ -433,6 +433,95 @@ ACID stands for:
 
 ---
 
+## 🪟 MySQL Window Functions Cheat Sheet
+
+Window functions perform calculations across a set of table rows related to the current row. They use the `OVER()` clause.
+
+### 1. ROW_NUMBER()
+- Assigns a unique sequential integer to rows within a partition.
+  ```sql
+  SELECT name, salary,
+    ROW_NUMBER() OVER (ORDER BY salary DESC) AS rank
+  FROM employees;
+  ```
+
+### 2. RANK()
+- Similar to ROW_NUMBER, but rows with equal values receive the same rank, with gaps.
+  ```sql
+  SELECT name, salary,
+    RANK() OVER (ORDER BY salary DESC) AS rank
+  FROM employees;
+  ```
+
+### 3. DENSE_RANK()
+- Like RANK, but no gaps in ranking values.
+  ```sql
+  SELECT name, salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank
+  FROM employees;
+  ```
+
+### 4. NTILE(n)
+- Divides rows into n buckets and assigns a bucket number.
+  ```sql
+  SELECT name, salary,
+    NTILE(4) OVER (ORDER BY salary DESC) AS quartile
+  FROM employees;
+  ```
+
+### 5. LEAD()
+- Returns data from the next row in the window.
+  ```sql
+  SELECT name, salary,
+    LEAD(salary) OVER (ORDER BY salary) AS next_salary
+  FROM employees;
+  ```
+
+### 6. LAG()
+- Returns data from the previous row in the window.
+  ```sql
+  SELECT name, salary,
+    LAG(salary) OVER (ORDER BY salary) AS prev_salary
+  FROM employees;
+  ```
+
+### 7. FIRST_VALUE()
+- Returns the first value in the window frame.
+  ```sql
+  SELECT name, salary,
+    FIRST_VALUE(salary) OVER (ORDER BY salary DESC) AS highest_salary
+  FROM employees;
+  ```
+
+### 8. LAST_VALUE()
+- Returns the last value in the window frame.
+  ```sql
+  SELECT name, salary,
+    LAST_VALUE(salary) OVER (ORDER BY salary DESC
+      ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS lowest_salary
+  FROM employees;
+  ```
+
+### 9. Aggregate Functions with OVER()
+
+- **SUM, AVG, MIN, MAX, COUNT** can be used as window functions.
+  ```sql
+  SELECT name, salary,
+    SUM(salary) OVER (PARTITION BY department) AS dept_total_salary
+  FROM employees;
+  ```
+
+### 10. PARTITION BY
+
+- Divides the result set into partitions to which the window function is applied.
+  ```sql
+  SELECT name, department, salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank
+  FROM employees;
+  ```
+
+---
+
 ## 📝 Tip
 
 Practice these assertions and functions with real queries to master SQL for interviews!
