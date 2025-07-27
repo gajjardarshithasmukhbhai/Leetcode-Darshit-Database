@@ -431,6 +431,34 @@ ACID stands for:
   SELECT name AS employee_name FROM employees;
   ```
 
+### 17. WITH (Common Table Expressions - CTE)
+- Defines a temporary result set that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement.
+- Useful for breaking complex queries into simpler parts and for recursive queries (MySQL 8+).
+
+**Example:**
+```sql
+WITH high_salary_employees AS (
+  SELECT name, salary
+  FROM employees
+  WHERE salary > 5000
+)
+SELECT * FROM high_salary_employees;
+```
+
+**Recursive Example:**
+```sql
+WITH RECURSIVE employee_hierarchy AS (
+  SELECT id, name, manager_id
+  FROM employees
+  WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id
+  FROM employees e
+  INNER JOIN employee_hierarchy eh ON e.manager_id = eh.id
+)
+SELECT * FROM employee_hierarchy;
+```
+
 ---
 
 ## 🪟 MySQL Window Functions Cheat Sheet
